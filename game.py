@@ -9,10 +9,12 @@ cor_reset = "\033[0m"
 inventario = []
 
 
-#functions
+#limpa a tela com um comando no terminal (pode ser diferente no windows)
 def clear():
     os.system('clear')
 
+# Essa função recebe um dicionário com as escolhas possíveis, caso o input do usuário não exista nas chaves desse dicionário,
+# a função exibe uma mensagem de erro, e executa o argumento passado na initialFunction
 def waitChoice(choices, initialFunction):
     acao = input('O que eu vou fazer agora? >> ')
     if acao in choices.keys():
@@ -23,6 +25,7 @@ def waitChoice(choices, initialFunction):
         time.sleep(1)
         initialFunction()
 
+# Essa função aqui recebe o dicionário com as escolhas, e exibe elas na tela, a cor é alterada apenas para fins estéticos
 def showChoices(choices):
     print('ações: ')
     for choice in choices.keys():
@@ -34,18 +37,26 @@ def exists_inv(array, procurada):
             return True
     return False
 
+# Funções de fim de jogo
+
 def gameover():
     print('Fim de jogo, você perdeu!')
 
 def youwin():
-    print('você conseguiu fugir')
+    print('fim de jogo, você conseguiu fugir')
 
 
 #historia nodes
+
+# Cada função é um "nó" que conta parte da história, todas essas funções devem ter o dicionário com as opções de escolha para o jogador, esse dicionário
+# serve para permitir que o jogador navege entre os nós da história
+
 def inicio():
     choices = { "levantar":levantou }
     clear()
+
     print('Eu acordei em uma cama desconhecida, o quarto não parece meu, algo está errado...')
+
     showChoices(choices)
     waitChoice(choices, inicio)
 
@@ -59,6 +70,7 @@ def levantou():
 
     print('Eu me levanto, percebendo que o quarto realmente não é meu...')
     print('ele está bastante limpo, além disso, posso ver uma escrivaninha com uma gaveta, uma televisão antiga e a porta que me leva para fora do quarto...')
+    
     showChoices(choices)
     waitChoice(choices, levantou)
 
@@ -258,15 +270,6 @@ def reabriu_porta():
     print('A última coisa que eu consegui ver, foi a lâmina afiada de um machado, é o meu fim.')
 
     gameover()
-
-
-
-
-
-
-
-
-
 
 
 
